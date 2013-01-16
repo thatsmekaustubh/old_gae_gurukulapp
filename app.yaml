@@ -1,0 +1,50 @@
+application: sresgurukul
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /stylesheets
+  static_dir: stylesheets
+
+- url: /images
+  static_dir: images
+
+- url: /js
+  static_dir: js
+
+- url: /index\.html
+  script: mainNav.py
+
+- url: /logout\.logout
+  script: logout.py
+  
+- url: /(seller)\.(show|add|update|updateShow)
+  script: seller.py
+
+- url: /seller\.login
+  script: sellerLogin.py
+
+- url: /(owner)\.(show|add|update|updateShow)
+  script: owner.py
+
+- url: /owner\.login
+  script: ownerLogin.py
+
+- url: /(admin)\.(show|add|update|updateShow)
+  script: admin.py
+
+- url: /admin\.login
+  script: adminLogin.py
+
+- url: /(incharge)\.(show|add|update|updateShow)
+  script: incharge.py
+
+- url: /incharge\.login
+  script: inchargeLogin.py
+
+- url: /.*
+  script: mainNav.py
+  
+builtins:
+- remote_api: on

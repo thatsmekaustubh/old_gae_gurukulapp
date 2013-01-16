@@ -1,0 +1,28 @@
+@charset "utf-8";
+.navBar {
+	text-transform: uppercase;
+	padding-left:25px;
+}
+
+.navBar a
+{
+	padding-top:5px;
+	color:#999;
+	display: block;
+	width: auto;;
+	text-decoration: none;
+	position: relative;
+	float: left;
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:13px;
+	padding-left:15px;
+}
+
+.navBar a:hover
+{
+	color:#FFF;
+}
+
+.selected {
+	color:#FFF;
+}

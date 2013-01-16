@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>SRES COE - GURUKUL</title>
+<script type="text/javascript" src="js/location.js"></script>
+<script type="text/javascript" src="js/quickEnquire.js"></script>
+<link href="stylesheets/basicStyle.css" rel="stylesheet" type="text/css" />
+<link href="stylesheets/navBar.css" rel="stylesheet" type="text/css" />
+<link href="stylesheets/bottomNavBar.css" rel="stylesheet" type="text/css" />
+<link href="styleseehts/homeSpecials" rel="stylesheet" type="text/css" />
+</head>
+
+<body onload="locate();">
+<div class="topControl">
+    <div class="navBar">
+  
+    	<a href="collegeHome.html">home</a>
+    	<a href="staff.html">staff</a> 
+    	<a href="departments.html">Departments</a> 
+    	<a href="photos.html">photos</a> 
+    	<a href="notices.html">Notices</a> 
+    	<a href="knowus.html">knowUs</a> 
+    
+    </div>
+
+</div>
+<div class="logoBk">
+  	<div class="logDetails">
+    	{% if url %}
+    		{{person}} | <a href="{{ url }}">{{ url_linktext }}</a>
+        {% else %}
+        	<a href="{{ lurl }}">{{ lurl_linktext }}</a>
+        {% endif %}
+    </div>
+  <div class="mainLogo"> 
+  <strong>
+  <img src="images/gurukullogo.gif" alt="collegelogo" name="logo" width="821" height="86" id="logo" />
+  <p>Final year project : G U R U K U L   &nbsp;&nbsp;&nbsp;&nbsp; S y s t e m</p>
+  </strong>
+ </div>   
+  </div>
+  <div class="mains">
+  <div class="content">
+
+    <table class="mainTable" width="100%" border="0" cellpadding="5">
+      <tr>
+        <td width="70%">
+          <div>
+            {% block quotedis %}
+  replace
+  {% endblock %}
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="bottomNavbar">
+  <table width="100%" id="botNavTable">
+    <tr>
+      <td align="left">
+      	<a href="#">Campus knowledge management</a>
+        <a href="#">Campus Money</a>
+        <a href="#">Campus Resource Management</a>
+        <a href="#">Campus Public Transit</a>
+        <a href="#">Campus Drive</a>
+        <a href="#">Campus Tour</a>
+        <a href="#">Campus Kiosk</a>
+      </td>
+      <td align="center">
+      	<img src="images/Untitled.gif" name="companyLogo" width="100" height="100" id="companyLogo" />
+        <b><i> AND </i></b>
+        <img src="images/emblem.gif" width="90" height="90" /></td>
+      <td align="right">
+      	<a href="#">Campus knowledge management</a>
+        <a href="#">Campus Money</a>
+        <a href="#">Campus Resource Management</a>
+        <a href="#">Campus Public Transit</a>
+        <a href="#">Campus Drive</a>
+        <a href="#">Campus Tour</a>
+        <a href="#">Campus Kiosk</a>    
+      </td>
+    </tr>
+    </table>
+  <div id="LocationInfo" align="center">
+  </div>
+</div>
+</body>
+</html>
+
+  

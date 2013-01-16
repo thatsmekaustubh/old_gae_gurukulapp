@@ -1,0 +1,12 @@
+class sellRecords(db.Model):
+  BillingBillRecordId = db.StringProperty()					
+  BillingName = db.StringProperty()							
+  BillingOrganization = db.StringProperty()					
+  BillingOrganizationCode = db.StringProperty()
+  BillingOrganizationSubDomainCode = db.StringProperty()
+  BillingAddress = db.StringProperty()						
+  BillingPostalCode = db.StringProperty()					
+  BillingContactNo = db.StringProperty()					
+  BillingEmail= db.EmailProperty()							
+  BillingDate = db.StringProperty()							
+  updationdate = db.DateTimeProperty()
