@@ -13,8 +13,11 @@ handlers:
 - url: /js
   static_dir: js
 
-- url: /index\.html
+- url: /(gurukulHome|newSubdomain|allServiceInfo|happyCustomers|appPhotoGallery|talkToDevelopers)\.html
   script: mainNav.py
+
+- url: /(collegeHome|staff|deapartments|photos|notices|knowus)\.html
+  script: collegeNav.py
 
 - url: /logout\.logout
   script: logout.py

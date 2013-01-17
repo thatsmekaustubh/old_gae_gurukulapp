@@ -14,14 +14,21 @@
 <body onload="locate();">
 <div class="topControl">
     <div class="navBar">
-  
-    	<a href="collegeHome.html">home</a>
+	{% ifequal gurukulDisp "gurukul" %}
+    	<a href="gurukulHome.html">+ GURUKUL</a>
+    	<a href="allServiceInfo.html">Services</a> 
+    	<a href="happyCustomers.html">Testimonials</a> 
+    	<a href="appPhotoGallery.html">App Snaps</a> 
+    	<a href="talkToDevelopers.html">Developers</a>
+    {% endifequal %}
+	{% ifequal gurukulDisp "nogurukul" %}
+    	<a href="collegeHome.html">+ home</a>
     	<a href="staff.html">staff</a> 
     	<a href="departments.html">Departments</a> 
     	<a href="photos.html">photos</a> 
     	<a href="notices.html">Notices</a> 
     	<a href="knowus.html">knowUs</a> 
-    
+    {% endifequal %}
     </div>
 
 </div>
@@ -35,7 +42,7 @@
     </div>
   <div class="mainLogo"> 
   <strong>
-  <img src="images/gurukullogo.gif" alt="collegelogo" name="logo" width="821" height="86" id="logo" />
+  <img src="images/{{ logoimg }}" alt="collegelogo" name="logo" width="821" height="86" id="logo" />
   <p>Final year project : G U R U K U L   &nbsp;&nbsp;&nbsp;&nbsp; S y s t e m</p>
   </strong>
  </div>   

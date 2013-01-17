@@ -5,43 +5,83 @@ from google.appengine.ext import db
 from google.appengine.api import users
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
+from util.sessions import Session
 
 class validDomain(db.Model):
   validDomains = db.StringProperty()  
   
 class mainPage(webapp.RequestHandler):
 	def get(self):
-		#self.response.out.write("Hello mainPage")
-		domain = "www.srescoe.sresgurukul.appspot.com"#os.environ['HTTP_HOST']
+		domain = "abc"#"www.srescoe.sresgurukul.appspot.com"#os.environ['HTTP_HOST']
 		pat='([\w.-]+)\.([\w.-]+)\.([\w.-]+)\.([\w.-]+)\.([\w.-]+)'
 		match = re.search(pat, domain)
 		if match:
-			#self.response.out.write(match.group(2))
-			query_result = db.GqlQuery("SELECT * "
-                           "FROM validDomain")
-			flag = 0
-			for query_result_loop in query_result:
-				if query_result_loop.validDomains == match.group(2):
-					flag = 1
-					break
+			#query_result = db.GqlQuery("SELECT * "
+            #               "FROM validDomain")
+			flag = 0 # 1
+			#if query_result:
+			#	for query_result_loop in query_result:
+			#		if query_result_loop.validDomains == match.group(2):
+			#			flag = 1
+			#			break
 			if flag	== 1:
-				self.response.out.write("Found in db")
+				self.session = Session()
+				self.session['college']=match.group(2)
+				user = users.get_current_user()
+				path = os.path.join(os.path.dirname(__file__), 'template/collegeHome.html')
+				logoimg = "logo1.gif"
+				if user:
+					url = users.create_logout_url(self.request.uri)
+					url_linktext = 'Logout'
+					self.response.out.write(template.render(path,{'person':user.nickname(),'url':url,'url_linktext':url_linktext,'logoimg':logoimg,'gurukulDisp':'nogurukul','collegeCode':self.session['college']}))
+				else:
+					url = users.create_login_url(self.request.uri)
+					url_linktext = 'Login'
+					self.response.out.write(template.render(path,{'lurl':url,'lurl_linktext':url_linktext,'logoimg':logoimg,'gurukulDisp':'nogurukul','collegeCode':self.session['college']}))
 			else:
-				path = "%s/index.html" % os.environ['HTTP_HOST']
-				self.redirect(path)
-			
-			
+				user = users.get_current_user()
+				path = os.path.join(os.path.dirname(__file__), 'template/newSubdomain.html')
+				logoimg = "gurukullogo.gif"
+				if user:
+					url = users.create_logout_url(self.request.uri)
+					url_linktext = 'Logout'
+					self.response.out.write(template.render(path,{'person':user.nickname(),'url':url,'url_linktext':url_linktext,'logoimg':logoimg,'gurukulDisp':'gurukul'}))
+				else:
+					url = users.create_login_url(self.request.uri)
+					url_linktext = 'Login'
+					self.response.out.write(template.render(path,{'lurl':url,'lurl_linktext':url_linktext,'logoimg':logoimg,'gurukulDisp':'gurukul'}))
 		else:
-			path = "%s/index.html" % os.environ['HTTP_HOST']
-			self.redirect(path)
+			user = users.get_current_user()
+			path = os.path.join(os.path.dirname(__file__), 'template/gurukulHome.html')
+			logoimg = "gurukullogo.gif"
+			if user:
+				url = users.create_logout_url(self.request.uri)
+				url_linktext = 'Logout'
+				self.response.out.write(template.render(path,{'person':user.nickname(),'url':url,'url_linktext':url_linktext,'logoimg':logoimg,'gurukulDisp':'gurukul'}))
+			else:
+				url = users.create_login_url(self.request.uri)
+				url_linktext = 'Login'
+				self.response.out.write(template.render(path,{'lurl':url,'lurl_linktext':url_linktext,'logoimg':logoimg,'gurukulDisp':'gurukul'}))
 
 class indexPage(webapp.RequestHandler):
 	def get(self):
-		self.response.out.write("Not a valid domain do u wanna register ?")
-		
+		self.session = Session()
+		if 'college' in self.session:
+			del self.session['college']
+		user = users.get_current_user()
+		path = os.path.join(os.path.dirname(__file__), 'template/gurukulHome.html')
+		logoimg = "gurukullogo.gif"
+		if user:
+			url = users.create_logout_url(self.request.uri)
+			url_linktext = 'Logout'
+			self.response.out.write(template.render(path,{'person':user.nickname(),'url':url,'url_linktext':url_linktext,'logoimg':logoimg,'gurukulDisp':'gurukul'}))
+		else:
+			url = users.create_login_url(self.request.uri)
+			url_linktext = 'Login'
+			self.response.out.write(template.render(path,{'lurl':url,'lurl_linktext':url_linktext,'logoimg':logoimg,'gurukulDisp':'gurukul'}))
 
 applications = webapp.WSGIApplication([	('/', mainPage),
-										('/index.html', indexPage)
+										('/gurukulHome.html', indexPage)
 									  ],debug=True)
 
 def main():
