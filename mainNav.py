@@ -2,17 +2,25 @@ import os
 import re
 from google.appengine.ext.webapp import template
 from google.appengine.ext import db
+from google.appengine.ext.db import Key
 from google.appengine.api import users
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 from util.sessions import Session
 
-class validDomain(db.Model):
-  validDomains = db.StringProperty()  
+
+class requestInvite(db.Model):
+  requestEmail = db.StringProperty()
+  requestFor = db.StringProperty()
+  msg = db.StringProperty()
+  updationdate = db.DateTimeProperty(auto_now_add=True)  
+ 
+def datab_key(table_name=None):
+  return db.Key.from_path('unknownSubDomainRequests', table_name)
   
 class mainPage(webapp.RequestHandler):
 	def get(self):
-		domain = "abc"#"www.srescoe.sresgurukul.appspot.com"#os.environ['HTTP_HOST']
+		domain = "www.srescoe.sresgurukul.appspot.com"#os.environ['HTTP_HOST']
 		pat='([\w.-]+)\.([\w.-]+)\.([\w.-]+)\.([\w.-]+)\.([\w.-]+)'
 		match = re.search(pat, domain)
 		if match:
@@ -80,8 +88,30 @@ class indexPage(webapp.RequestHandler):
 			url_linktext = 'Login'
 			self.response.out.write(template.render(path,{'lurl':url,'lurl_linktext':url_linktext,'logoimg':logoimg,'gurukulDisp':'gurukul'}))
 
+class requestInvite(webapp.RequestHandler):
+	def post(self):
+		#b = requestInvite()
+		#b.requestEmail = self.request.get('senderemail')
+		#b.requestFor = self.request.get('recieveremail')
+		#b.msg = self.request.get('message')
+		#b.put()
+		
+		user = users.get_current_user()
+		path = os.path.join(os.path.dirname(__file__), 'template/newSubdomain.html')
+		msg="success"
+		logoimg = "gurukullogo.gif"
+		if user:
+			url = users.create_logout_url(self.request.uri)
+			url_linktext = 'Logout'
+			self.response.out.write(template.render(path,{'person':user.nickname(),'url':url,'url_linktext':url_linktext,'logoimg':logoimg,'gurukulDisp':'gurukul','successMsg':msg}))
+		else:
+			url = users.create_login_url(self.request.uri)
+			url_linktext = 'Login'
+			self.response.out.write(template.render(path,{'lurl':url,'lurl_linktext':url_linktext,'logoimg':logoimg,'gurukulDisp':'gurukul','successMsg':msg}))
+		
 applications = webapp.WSGIApplication([	('/', mainPage),
-										('/gurukulHome.html', indexPage)
+										('/gurukulHome.html', indexPage),
+										('/newSubDInvite.send',requestInvite)
 									  ],debug=True)
 
 def main():

@@ -6,11 +6,14 @@
 		<div>
         <p> You are redirected here becoz you either mis-spelled your college domain or there is no college with such subdomain !</p>
 		<p> If you want to recommend this subdomain or website to some one please enter their email id with your custome message </p>
-		
-		<form method="" action="">
+		{% ifequal successMsg "success" %}
+		<font color="red">
+		Request placed successfully</font>
+		{% else %}
+		<form method="POST" action="newSubDInvite.send">
 			<table>
 				<tr>
-					<th bgcolor="#CCC" style="color:#FFF;"> Recommendation form</th><th bgcolor="#CCC" style="color:#FFF;"></th>
+					<th bgcolor="#CCC" style="color:#FFF;"> Request invite form</th><th bgcolor="#CCC" style="color:#FFF;"></th>
 				</tr>
 				<tr>
 					<td>Your Email id</td>
@@ -18,11 +21,11 @@
 				</tr>
 				<tr>
 					<td>Your acquiantance email id</td>
-					<td><input type="text" name="senderemail"/></td>
+					<td><input type="text" name="recieveremail"/></td>
 				</tr>
 				<tr>
 					<td>Your message</td>
-					<td><textarea></textarea></td>
+					<td><input type="text" name="message"/></td>
 				</tr>
                 <tr>
 					<td><input type="submit" value="Send"/></td>
@@ -30,7 +33,7 @@
 				</tr>
 			</table>
 		</form>
-		
+		{% endifequal %}
 	    </div>
 </div>
 </table>

@@ -13,7 +13,7 @@ handlers:
 - url: /js
   static_dir: js
 
-- url: /(gurukulHome|newSubdomain|allServiceInfo|happyCustomers|appPhotoGallery|talkToDevelopers)\.html
+- url: /(gurukulHome|newSubdomain|allServiceInfo|happyCustomers|appPhotoGallery|talkToDevelopers|newSubDInvite)\.(html|send)
   script: mainNav.py
 
 - url: /(collegeHome|staff|deapartments|photos|notices|knowus)\.html
